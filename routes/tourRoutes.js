@@ -4,8 +4,6 @@ const tourController = require("../controllers/tourController");
 
 const router = express.Router();
 
-router.param('id', tourController.checkId);
-
 // ROUTER
 /**
  * create a checkBody middleware
@@ -14,14 +12,17 @@ router.param('id', tourController.checkId);
  * add it to the post handler stack
  */
 
+router.route('/top-5-cheap')
+    .get(tourController.aliasTopCheapTours, tourController.getAllTours);
+
 router.route('/')
-.get(tourController.getAllTours)
-.post(tourController.checkBody, tourController.createNewTour);
+    .get(tourController.getAllTours)
+    .post(tourController.createNewTour);
 
 router.route('/:id')
-.get(tourController.getTour)
-.patch(tourController.updateTour)
-.delete(tourController.deleteTour);
+    .get(tourController.getTour)
+    .patch(tourController.updateTour)
+    .delete(tourController.deleteTour);
 
 
 
